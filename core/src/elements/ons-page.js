@@ -210,8 +210,8 @@ export default class PageElement extends BaseElement {
 
   _tryToFillStatusBar(){
     internal.autoStatusBarFill(() => {
-      const filled = util.findParent(this, e => e.hasAttribute('status-bar-fill'), e => !e.nodeName.match(/ons-modal/i));
-      util.toggleAttribute(this, 'status-bar-fill', !filled && (this._canAnimateToolbar() || !this._hasAPageControlChild()));
+      const filled = util.findParent(this, e => e.hasAttribute('status-bar-fill') && e.parentNode !== null && e.parentNode.nodeName.match(/ons-(splitter|sliding-menu|navigator|tabbar)/i));
+      util.toggleAttribute(this, 'status-bar-fill', !filled && this._canAnimateToolbar());
     });
   }
 

@@ -66,12 +66,15 @@ util.findChild = (element, query) => {
  * @param {String/Function} query dot class name or node name or matcher function.
  * @return {HTMLElement/null}
  */
-util.findParent = (element, query, until) => {
+util.findParent = (element, query) => {
   const match = util.prepareQuery(query);
 
   let parent = element.parentNode;
   for (;;) {
-    if (!parent || parent === document || (until && until(parent))) {
+    if (!parent) {
+      return null;
+    }
+    if (parent === document) {
       return null;
     } else if (match(parent)) {
       return parent;
